@@ -1,8 +1,27 @@
 <template>
 	<div>
 		<h3>카트 리스트</h3>
-		<CartItem v-for="(item, idx) in globalCarts" :key="idx" :item="item" />
-		<h3>TOTAL {{ totalPrice }} 원</h3>
+		<h2>TOTAL {{ totalPrice }} 원</h2>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">상품명</th>
+					<th scope="col">개별 가격</th>
+					<th scope="col">갯수</th>
+					<th scope="col">총 가격</th>
+					<th scope="col">#</th>
+				</tr>
+			</thead>
+			<tbody>
+				<CartItem
+					v-for="(item, idx) in globalCarts"
+					:key="idx"
+					:item="item"
+					:idx="idx"
+				/>
+			</tbody>
+		</table>
 	</div>
 </template>
 

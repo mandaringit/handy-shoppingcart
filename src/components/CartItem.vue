@@ -1,17 +1,23 @@
 <template>
-	<div>
-		<span>{{ item.name }}</span>
-		<span>{{ item.price }}</span>
-		<span>{{ item.count }}개</span>
-		<span>{{ itemCountPrice }}</span>
-		<button @click="deleteItem">delete</button>
-	</div>
+	<tr>
+		<td>{{ idx + 1 }}</td>
+		<td>{{ item.name }}</td>
+		<td>{{ item.price }} 원</td>
+		<td>{{ item.count }}개</td>
+		<td>{{ itemCountPrice }} 원</td>
+		<td>
+			<button class="btn btn-sm btn-danger" @click="deleteItem">delete</button>
+		</td>
+	</tr>
 </template>
 
 <script>
 export default {
 	name: 'CartItem',
 	props: {
+		idx: {
+			type: Number,
+		},
 		item: {
 			type: Object,
 		},
