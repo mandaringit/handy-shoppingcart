@@ -3,6 +3,7 @@
 		<span>{{ item.name }}</span>
 		<span>{{ item.price }}</span>
 		<span>{{ item.count }}개</span>
+		<button @click="deleteItem(item)">delete</button>
 	</div>
 </template>
 
@@ -12,6 +13,11 @@ export default {
 	props: {
 		item: {
 			type: Object,
+		},
+	},
+	methods: {
+		deleteItem(item) {
+			this.$store.dispatch('deleteItemAction', item);
 		},
 	},
 };

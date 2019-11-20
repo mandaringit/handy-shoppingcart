@@ -32,7 +32,7 @@ export default {
 					count: this.count,
 				};
 
-				this.$store.dispatch('addingItem', item);
+				this.$store.dispatch('addingItemAction', item);
 			}
 		},
 	},
