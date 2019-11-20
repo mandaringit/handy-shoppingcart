@@ -1,9 +1,14 @@
 <template>
-	<div>
-		<input type="text" v-model="item.name" />
-		<input type="number" v-model="item.price" />
-		<input type="number" v-model="item.count" />
-		<button @click="addItem">+</button>
+	<div class="form-group">
+		<input
+			class="form-control"
+			type="text"
+			v-model="item.name"
+			placeholder="아이템 이름을 입력하세요"
+		/>
+		<input class="form-control" type="number" v-model="item.price" />
+		<input class="form-control" type="number" v-model="item.count" />
+		<button class="btn btn-sm btn-primary" @click="addItem">+</button>
 	</div>
 </template>
 

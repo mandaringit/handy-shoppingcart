@@ -1,8 +1,10 @@
 <template>
 	<div id="app">
 		<h1>HANDY SHOPPING CART</h1>
-		<ItemInput />
-		<CartList />
+		<div class="container">
+			<ItemInput />
+			<CartList />
+		</div>
 	</div>
 </template>
 

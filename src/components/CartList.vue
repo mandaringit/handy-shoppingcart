@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<h3>카트 리스트</h3>
-		<CartItem v-for="item of globalCarts" :key="item.id" :item="item" />
+		<CartItem v-for="(item, idx) in globalCarts" :key="idx" :item="item" />
 		<h3>TOTAL {{ totalPrice }} 원</h3>
 	</div>
 </template>
