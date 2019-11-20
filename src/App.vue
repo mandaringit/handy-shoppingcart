@@ -1,16 +1,19 @@
 <template>
 	<div id="app">
 		<h1>HANDY SHOPPING CART</h1>
+		<ItemInput />
 		<CartList />
 	</div>
 </template>
 
 <script>
 import CartList from './components/CartList';
+import ItemInput from './components/ItemInput';
 export default {
 	name: 'app',
 	components: {
 		CartList,
+		ItemInput,
 	},
 	mounted() {
 		this.$store.dispatch('initialize');
