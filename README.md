@@ -1,24 +1,16 @@
 # handy-shoppingcart
 
-## Project setup
-```
-yarn install
-```
+장보러 갔을때 얼마나 담았는지 간단한게 살펴보자
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+## TODO
 
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- [x] 카트에 아이템 추가
+- [x] 총 금액
+- [x] 카트에서 아이템 삭제
+- [] 삭제 확인 (모달?)
+- [] 카트에서 아이템 수정 (모달)
+- [] 아이템 갯수 플러스 마이너스 버튼
+- [] 아이템 가격 플러스 마이너스 버튼(단위별)
+- [] 토탈 금액 애니메이션 넣기
+- [] 아이템 추가 모달화
+- [] 전체 카트리스트 초기화 (및 초기화 전단계 저장)
