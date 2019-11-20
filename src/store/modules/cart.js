@@ -1,10 +1,10 @@
 const state = {
-	carts: {},
+	carts: [],
 };
 
 const mutations = {
 	setCarts(state) {
-		state.carts = JSON.parse(localStorage.getItem('handy-cart')) || {};
+		state.carts = JSON.parse(localStorage.getItem('handy-cart')) || [];
 	},
 };
 

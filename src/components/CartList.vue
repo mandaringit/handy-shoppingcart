@@ -1,13 +1,17 @@
 <template>
 	<div>
 		<h3>카트 리스트</h3>
-		<h1>{{ globalCarts }}</h1>
+		<CartItem v-for="item of globalCarts" :key="item.id" :item="item" />
 	</div>
 </template>
 
 <script>
+import CartItem from './CartItem';
 export default {
 	name: 'CartList',
+	components: {
+		CartItem,
+	},
 	computed: {
 		globalCarts() {
 			return this.$store.getters.globalCarts;
