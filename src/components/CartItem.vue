@@ -3,7 +3,8 @@
 		<span>{{ item.name }}</span>
 		<span>{{ item.price }}</span>
 		<span>{{ item.count }}개</span>
-		<button @click="deleteItem(item)">delete</button>
+		<span>{{ itemCountPrice }}</span>
+		<button @click="deleteItem">delete</button>
 	</div>
 </template>
 
@@ -16,8 +17,13 @@ export default {
 		},
 	},
 	methods: {
-		deleteItem(item) {
-			this.$store.dispatch('deleteItemAction', item);
+		deleteItem() {
+			this.$store.dispatch('deleteItemAction', this.item);
+		},
+	},
+	computed: {
+		itemCountPrice() {
+			return this.item.price * this.item.count;
 		},
 	},
 };
