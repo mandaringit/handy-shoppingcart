@@ -6,7 +6,7 @@
 		<td>{{ item.count }}개</td>
 		<td>{{ itemCountPrice }} 원</td>
 		<td>
-			<button class="btn btn-sm btn-danger" @click="deleteItem">delete</button>
+			<v-btn small color="error" @click="deleteItem">delete</v-btn>
 		</td>
 	</tr>
 </template>
