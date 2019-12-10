@@ -1,21 +1,21 @@
 <template>
 	<v-app>
-		<h1>HANDY SHOPPING CART</h1>
+		<h1 class="display-3 font-weight-bold">HANDY SHOPPING CART</h1>
 		<v-content>
-			<ItemInput />
 			<CartList />
+			<BottomSheet />
 		</v-content>
 	</v-app>
 </template>
 
 <script>
 import CartList from './components/CartList';
-import ItemInput from './components/ItemInput';
+import BottomSheet from './components/BottomSheet';
 export default {
 	name: 'app',
 	components: {
 		CartList,
-		ItemInput,
+		BottomSheet,
 	},
 	mounted() {
 		this.$store.dispatch('initialize');

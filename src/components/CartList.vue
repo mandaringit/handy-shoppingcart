@@ -1,40 +1,76 @@
 <template>
 	<div>
-		<h3>카트 리스트</h3>
-		<h2>TOTAL {{ totalPrice }} 원</h2>
-		<table class="table">
-			<thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">상품명</th>
-					<th scope="col">개별 가격</th>
-					<th scope="col">갯수</th>
-					<th scope="col">총 가격</th>
-					<th scope="col">#</th>
-				</tr>
-			</thead>
-			<tbody>
-				<CartItem
-					v-for="(item, idx) in globalCarts"
-					:key="idx"
-					:item="item"
-					:idx="idx"
-				/>
-			</tbody>
-		</table>
+		<h2 class="my-5">
+			TOTAL <span class="cyan--text">{{ totalPrice }}</span> 원
+		</h2>
+		<v-container>
+			<v-data-table
+				:headers="headers"
+				:items="globalCarts"
+				:sort-by="['name', 'price', 'count']"
+				hide-default-footer
+				:dark="true"
+			>
+				<!-- 아이템 개별 총합 가격 -->
+				<template #item.priceSum="{ item }">
+					{{ sumPrice(item.price, item.count) }}
+				</template>
+				<!-- 아이템 액션 -->
+				<template #item.action="{ item }">
+					<v-btn small color="error" @click="deleteItem(item)">delete</v-btn>
+				</template>
+			</v-data-table>
+		</v-container>
 	</div>
 </template>
 
 <script>
-import CartItem from './CartItem';
 export default {
 	name: 'CartList',
-	components: {
-		CartItem,
+	data() {
+		return {
+			headers: [
+				{
+					text: '상품명',
+					value: 'name',
+					align: 'center',
+				},
+				{
+					text: '개별가격',
+					value: 'price',
+					align: 'center',
+				},
+				{
+					text: '갯수',
+					value: 'count',
+					align: 'center',
+				},
+				{
+					text: '총가격',
+					value: 'priceSum',
+					align: 'center',
+					sortable: false,
+				},
+				{
+					text: '액션',
+					value: 'action',
+					align: 'center',
+					sortable: false,
+				},
+			],
+		};
+	},
+	methods: {
+		deleteItem(item) {
+			this.$store.dispatch('deleteItemAction', item);
+		},
 	},
 	computed: {
 		globalCarts() {
 			return this.$store.getters.globalCarts;
+		},
+		sumPrice() {
+			return (count, price) => count * price;
 		},
 		totalPrice() {
 			const total = this.globalCarts.reduce(
