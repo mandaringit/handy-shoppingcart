@@ -8,8 +8,16 @@
 				scroll-target="#app-contents"
 				fixed
 			>
-				<v-toolbar-title>HANDY SHOPPING CART</v-toolbar-title>
-				<v-spacer></v-spacer>
+				<v-toolbar-title class="app-title">HANDY SHOPPING CART</v-toolbar-title>
+				<v-spacer class="wide-spacer">
+					<!-- 화면너비가 600px보다 클때 나타납니다 -->
+				</v-spacer>
+				<v-toolbar-title class="mr-5">{{
+					totalPrice | numbering
+				}}</v-toolbar-title>
+				<v-spacer class="small-spacer">
+					<!-- 화면너비가 600px 보다 작아지면 나타납니다 -->
+				</v-spacer>
 				<BottomSheet />
 			</v-app-bar>
 		</div>
@@ -22,6 +30,8 @@
 <script>
 import CartList from './components/CartList';
 import BottomSheet from './components/BottomSheet';
+import { mapGetters } from 'vuex';
+import numeral from 'numeral';
 export default {
 	name: 'app',
 	components: {
@@ -30,6 +40,21 @@ export default {
 	},
 	mounted() {
 		this.$store.dispatch('initialize');
+	},
+	computed: {
+		...mapGetters(['globalCarts']),
+		totalPrice() {
+			const total = this.globalCarts.reduce(
+				(acc, item) => (acc += item.price * item.count),
+				0
+			);
+			return total;
+		},
+	},
+	filters: {
+		numbering(value) {
+			return `TOTAL ₩ ${numeral(value).format('0,0')}`;
+		},
 	},
 };
 </script>
@@ -40,5 +65,23 @@ export default {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
+}
+
+.small-spacer {
+	display: none;
+}
+
+@media (max-width: 600px) {
+	.app-title {
+		display: none;
+	}
+
+	.wide-spacer {
+		display: none;
+	}
+
+	.small-spacer {
+		display: inline;
+	}
 }
 </style>

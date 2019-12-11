@@ -1,15 +1,12 @@
 <template>
-	<div>
-		<h2 class="my-5">
-			TOTAL <span class="cyan--text">{{ totalPrice }}</span> 원
-		</h2>
+	<div style="padding-top:64px;">
 		<v-container>
 			<v-data-table
 				:headers="headers"
 				:items="globalCarts"
 				:sort-by="['name', 'price', 'count']"
 				hide-default-footer
-				:dark="true"
+				:items-per-page="30"
 			>
 				<!-- 아이템 개별 총합 가격 -->
 				<template #item.priceSum="{ item }">
@@ -71,13 +68,6 @@ export default {
 		},
 		sumPrice() {
 			return (count, price) => count * price;
-		},
-		totalPrice() {
-			const total = this.globalCarts.reduce(
-				(acc, item) => (acc += item.price * item.count),
-				0
-			);
-			return total;
 		},
 	},
 };
