@@ -8,9 +8,13 @@
 				hide-default-footer
 				:items-per-page="30"
 			>
+				<template #item.price="{ item }">
+					{{ item.price | numbering }}
+				</template>
+				<template #item.count="{ item }"> {{ item.count }} 개 </template>
 				<!-- 아이템 개별 총합 가격 -->
 				<template #item.priceSum="{ item }">
-					{{ sumPrice(item.price, item.count) }}
+					{{ sumPrice(item.price, item.count) | numbering }}
 				</template>
 				<!-- 아이템 액션 -->
 				<template #item.action="{ item }">
@@ -22,6 +26,7 @@
 </template>
 
 <script>
+import numeral from 'numeral';
 export default {
 	name: 'CartList',
 	data() {
@@ -68,6 +73,11 @@ export default {
 		},
 		sumPrice() {
 			return (count, price) => count * price;
+		},
+	},
+	filters: {
+		numbering(value) {
+			return `₩ ${numeral(value).format('0,0')}`;
 		},
 	},
 };
