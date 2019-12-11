@@ -2,14 +2,18 @@
 	<div class="text-center">
 		<v-bottom-sheet v-model="sheet">
 			<template #activator="{on}">
-				<v-btn v-on="on">
-					아이템 추가
+				<v-btn v-on="on" text icon color="red">
+					<v-icon>
+						mdi-plus
+					</v-icon>
 				</v-btn>
 			</template>
 			<v-sheet class="text-center">
-				<v-btn @click="closeSheet" class="mt-3" color="error">
-					취소
-				</v-btn>
+				<div style="position:relative;height:4rem">
+					<v-btn @click="closeSheet" class="mt-4" absolute right text>
+						<v-icon>mdi-close</v-icon>
+					</v-btn>
+				</div>
 				<ItemInput @itemAdded="closeSheet" />
 			</v-sheet>
 		</v-bottom-sheet>
