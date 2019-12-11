@@ -1,10 +1,21 @@
 <template>
 	<v-app>
-		<h1 class="display-3 font-weight-bold">HANDY SHOPPING CART</h1>
-		<v-content>
+		<div class="overflow-hidden">
+			<v-app-bar
+				color="deep-purple accent-4"
+				absoulute
+				dark
+				scroll-target="#app-contents"
+				fixed
+			>
+				<v-toolbar-title>HANDY SHOPPING CART</v-toolbar-title>
+				<v-spacer></v-spacer>
+				<BottomSheet />
+			</v-app-bar>
+		</div>
+		<v-sheet id="app-contents" class="over-flow-y-auto">
 			<CartList />
-			<BottomSheet />
-		</v-content>
+		</v-sheet>
 	</v-app>
 </template>
 
@@ -29,7 +40,5 @@ export default {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
-	color: #2c3e50;
-	padding-top: 5rem;
 }
 </style>
