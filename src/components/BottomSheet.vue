@@ -6,7 +6,7 @@
           <v-icon>mdi-plus</v-icon>
         </v-btn>
       </template>
-      <v-sheet class="text-center overflow-y-auto" max-height="600px">
+      <v-sheet class="text-center overflow-y-auto" max-height="90vh">
         <div style="position:relative;height:2rem">
           <v-btn @click="closeSheet" class="mt-4" absolute right text>
             <v-icon>mdi-close</v-icon>
