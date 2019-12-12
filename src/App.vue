@@ -15,7 +15,13 @@
         <v-spacer class="small-spacer">
           <!-- 화면너비가 600px 보다 작아지면 나타납니다 -->
         </v-spacer>
-        <BottomSheet />
+        <!-- 모달창 -->
+        <div class="app-wide">
+          <InputModalScroll />
+        </div>
+        <div class="app-small">
+          <InputModalFullScreen />
+        </div>
       </v-app-bar>
     </div>
     <!-- content -->
@@ -32,14 +38,17 @@
 
 <script>
 import CartList from "./components/CartList";
-import BottomSheet from "./components/BottomSheet";
+import InputModalFullScreen from "./components/InputModalFullScreen";
+import InputModalScroll from "./components/InputModalScroll";
 import { mapGetters } from "vuex";
 import numeral from "numeral";
 export default {
   name: "app",
   components: {
     CartList,
-    BottomSheet
+    // BottomSheet,
+    InputModalFullScreen,
+    InputModalScroll
   },
   mounted() {
     this.$store.dispatch("initialize");
@@ -74,6 +83,10 @@ export default {
   display: none;
 }
 
+.app-small {
+  display: none;
+}
+
 @media (max-width: 600px) {
   .app-title {
     display: none;
@@ -85,6 +98,14 @@ export default {
 
   .small-spacer {
     display: inline;
+  }
+
+  .app-small {
+    display: block;
+  }
+
+  .app-wide {
+    display: none;
   }
 }
 </style>
