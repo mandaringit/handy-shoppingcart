@@ -45,16 +45,19 @@
             v-model="item.count"
             :min="min"
             :max="max"
-            :thumb-label="item.count"
             color="deep-purple accent-4"
             track-color="deep-purple lighten-4"
             track-fill-color="deep-purple darken-2"
           >
             <template v-slot:prepend>
-              <v-icon @click="decrement" color="red accent-1">mdi-minus</v-icon>
+              <v-btn icon>
+                <v-icon @click="decrement" color="red accent-1">mdi-minus</v-icon>
+              </v-btn>
             </template>
             <template v-slot:append>
-              <v-icon @click="increment" color="teal accent-3">mdi-plus</v-icon>
+              <v-btn icon>
+                <v-icon @click="increment" @mousedown="increment" color="teal accent-3">mdi-plus</v-icon>
+              </v-btn>
             </template>
           </v-slider>
         </v-col>
@@ -138,6 +141,7 @@ export default {
       }
     },
     increment() {
+      console.log("??");
       if (this.item.count < this.max) {
         this.item.count += 1;
       }

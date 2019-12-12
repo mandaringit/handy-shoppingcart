@@ -14,7 +14,27 @@
         <template #item.priceSum="{ item }">{{ sumPrice(item.price, item.count) | numbering }}</template>
         <!-- 아이템 액션 -->
         <template #item.action="{ item }">
-          <v-btn small color="error" @click="deleteItem(item)">delete</v-btn>
+          <!-- 수정 -->
+          <v-btn small text fab color="orange">
+            <v-icon color="orange">mdi-square-edit-outline</v-icon>
+          </v-btn>
+          <!-- 삭제 -->
+          <div class="text-center">
+            <v-dialog v-model="deleteDialog" width="300px">
+              <template #activator="{on}">
+                <v-btn v-on="on" small text fab color="red">
+                  <v-icon color="red">mdi-trash-can</v-icon>
+                </v-btn>
+              </template>
+              <v-card>
+                <v-card-title class="headline">항목을 삭제합니다.</v-card-title>
+                <v-card-text>
+                  <v-spacer></v-spacer>
+                  <v-btn color="error" @click="deleteItem(item)">삭제</v-btn>
+                </v-card-text>
+              </v-card>
+            </v-dialog>
+          </div>
         </template>
       </v-data-table>
     </v-container>
@@ -27,6 +47,7 @@ export default {
   name: "CartList",
   data() {
     return {
+      deleteDialog: false,
       headers: [
         {
           text: "상품명",
@@ -50,7 +71,7 @@ export default {
           sortable: false
         },
         {
-          text: "액션",
+          text: "#",
           value: "action",
           align: "center",
           sortable: false
@@ -61,6 +82,7 @@ export default {
   methods: {
     deleteItem(item) {
       this.$store.dispatch("deleteItemAction", item);
+      this.deleteDialog = false;
     }
   },
   computed: {
