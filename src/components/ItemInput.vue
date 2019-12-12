@@ -2,46 +2,34 @@
   <v-form>
     <v-container style="max-width:600px">
       <!-- 아이템 이름 -->
-      <v-text-field type="text" v-model="item.name" required clearable label="아이템 이름"></v-text-field>
+      <v-text-field
+        type="text"
+        v-model="item.name"
+        required
+        label="아이템 이름"
+        clearable
+        :rules="[rules.required,rules.min]"
+      ></v-text-field>
       <!-- 아이템 가격 -->
       <v-input></v-input>
-      <v-text-field type="number" label="개당 가격" prefix="₩" v-model="item.price" min="1" />
+      <v-text-field
+        type="number"
+        label="개당 가격"
+        prefix="₩"
+        v-model="item.price"
+        min="1"
+        clearable
+        required
+        :rules="[rules.minPrice]"
+      />
 
       <!-- 금액 증가 버튼 -->
-      <v-row align="center" justify="center">
-        <v-col cols="2.4">
-          <v-btn color="teal darken-1 white--text" block @click="addMoney(10)">+ 10</v-btn>
+      <v-row>
+        <v-col cols="12" sm="6">
+          <v-overflow-btn :items="addMoneyList" segmented label="빠른 + 버튼" color="teal"></v-overflow-btn>
         </v-col>
-        <v-col cols="2.4">
-          <v-btn color="teal darken-2 white--text" block @click="addMoney(100)">+ 100</v-btn>
-        </v-col>
-        <v-col cols="2.4">
-          <v-btn color="teal darken-3 white--text" block @click="addMoney(1000)">+ 1,000</v-btn>
-        </v-col>
-        <v-col cols="2.4">
-          <v-btn color="teal darken-4 white--text" block @click="addMoney(5000)">+ 5,000</v-btn>
-        </v-col>
-        <v-col cols="2.4">
-          <v-btn color="teal darken-4 white--text" block @click="addMoney(10000)">+ 10,000</v-btn>
-        </v-col>
-      </v-row>
-
-      <!-- 금액 감소 버튼 -->
-      <v-row align="center" justify="center">
-        <v-col cols="2.4">
-          <v-btn color="red darken-1 white--text" block @click="minusMoney(10)">- 10</v-btn>
-        </v-col>
-        <v-col cols="2.4">
-          <v-btn color="red darken-2 white--text" block @click="minusMoney(100)">- 100</v-btn>
-        </v-col>
-        <v-col cols="2.4">
-          <v-btn color="red darken-3 white--text" block @click="minusMoney(1000)">- 1,000</v-btn>
-        </v-col>
-        <v-col cols="2.4">
-          <v-btn color="red darken-4 white--text" block @click="minusMoney(5000)">- 5,000</v-btn>
-        </v-col>
-        <v-col cols="2.4">
-          <v-btn color="red darken-4 white--text" block @click="minusMoney(10000)">- 10,000</v-btn>
+        <v-col cols="12" sm="6">
+          <v-overflow-btn :items="minusMoneyList" segmented label="빠른 - 버튼" color="red"></v-overflow-btn>
         </v-col>
       </v-row>
 
@@ -52,20 +40,31 @@
         </v-col>
         <v-col cols="12" sm="10">
           <!-- 아이템 갯수 슬라이드바 -->
-          <v-slider v-model="item.count" :min="min" :max="max">
+          <v-slider
+            v-model="item.count"
+            :min="min"
+            :max="max"
+            :thumb-label="item.count"
+            color="deep-purple accent-4"
+            track-color="deep-purple lighten-4"
+            track-fill-color="deep-purple darken-2"
+          >
             <template v-slot:prepend>
-              <v-icon @click="decrement">mdi-minus</v-icon>
+              <v-icon @click="decrement" color="red accent-1">mdi-minus</v-icon>
             </template>
             <template v-slot:append>
-              <v-icon @click="increment">mdi-plus</v-icon>
+              <v-icon @click="increment" color="teal accent-3">mdi-plus</v-icon>
             </template>
           </v-slider>
         </v-col>
       </v-row>
       <!-- 총 가격 -->
-      <h1 class="mb-2 display-1">₩ {{ sumPrice | numbering }}</h1>
+      <h1 class="mb-4 display-1">
+        <span class="orange--text">₩</span>
+        {{ sumPrice | numbering }}
+      </h1>
       <!-- 추가버튼 -->
-      <v-btn color="primary" @click="addItem" :block="true" class="mb-5">항목 추가</v-btn>
+      <v-btn class="white--text" color="deep-purple accent-2" @click="addItem" :block="true">추가</v-btn>
     </v-container>
   </v-form>
 </template>
@@ -76,13 +75,30 @@ export default {
   name: "ItemInput",
   data() {
     return {
-      max: 20,
       min: 1,
+      max: 100,
       item: {
         name: "",
         price: 0,
         count: 1
-      }
+      },
+      rules: {
+        required: value => !!value || "필수입니다.",
+        min: v => v.length >= 1 || "최소 한글자 이상이어야 합니다.",
+        minPrice: v => parseInt(v) > 0 || "가격은 0원 이상이어야 합니다."
+      },
+      addMoneyList: [
+        { text: "+ 100", callback: () => this.addMoney(100) },
+        { text: "+ 1,000", callback: () => this.addMoney(1000) },
+        { text: "+ 5,000", callback: () => this.addMoney(5000) },
+        { text: "+ 10,000", callback: () => this.addMoney(10000) }
+      ],
+      minusMoneyList: [
+        { text: "- 100", callback: () => this.minusMoney(100) },
+        { text: "- 1,000", callback: () => this.minusMoney(1000) },
+        { text: "- 5,000", callback: () => this.minusMoney(5000) },
+        { text: "- 10,000", callback: () => this.minusMoney(10000) }
+      ]
     };
   },
   computed: {
@@ -93,7 +109,7 @@ export default {
   methods: {
     addMoney(amount) {
       if (typeof this.item.price === "string") {
-        let intPrice = parseInt(this.item.price);
+        let intPrice = this.item.price === "" ? 0 : parseInt(this.item.price);
         this.item.price = intPrice + amount;
       } else {
         this.item.price += amount;
@@ -101,7 +117,7 @@ export default {
     },
     minusMoney(amount) {
       if (typeof this.item.price === "string") {
-        let intPrice = parseInt(this.item.price);
+        let intPrice = this.item.price === "" ? 0 : parseInt(this.item.price);
         if (intPrice - amount >= 0) {
           this.item.price = intPrice - amount;
         } else {

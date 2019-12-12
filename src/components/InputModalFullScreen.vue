@@ -7,7 +7,7 @@
     </template>
     <v-card>
       <div>
-        <v-toolbar dark color="primary">
+        <v-toolbar dark color="deep-purple accent-4">
           <v-toolbar-title>아이템 추가</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-btn icon dark @click="dialog = false">
