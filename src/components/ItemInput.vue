@@ -14,6 +14,7 @@
       <v-input></v-input>
       <v-text-field
         type="number"
+        pattern="[0-9]*"
         label="개당 가격"
         prefix="₩"
         v-model="item.price"
@@ -25,11 +26,11 @@
 
       <!-- 금액 증가 버튼 -->
       <v-row>
-        <v-col cols="12" sm="6">
-          <v-overflow-btn :items="addMoneyList" segmented label="빠른 + 버튼" color="teal"></v-overflow-btn>
+        <v-col cols="12" sm="6" class="py-0">
+          <v-overflow-btn :items="addMoneyList" segmented label="+ 단위가격" color="teal"></v-overflow-btn>
         </v-col>
-        <v-col cols="12" sm="6">
-          <v-overflow-btn :items="minusMoneyList" segmented label="빠른 - 버튼" color="red"></v-overflow-btn>
+        <v-col cols="12" sm="6" class="py-0">
+          <v-overflow-btn :items="minusMoneyList" segmented label="- 단위가격" color="red"></v-overflow-btn>
         </v-col>
       </v-row>
 
