@@ -49,15 +49,11 @@
             track-color="deep-purple lighten-4"
             track-fill-color="deep-purple darken-2"
           >
-            <template v-slot:prepend>
-              <v-btn icon>
-                <v-icon @click="decrement" color="red accent-1">mdi-minus</v-icon>
-              </v-btn>
+            <template #prepend>
+              <v-icon @click="decrement" color="red accent-1">mdi-minus</v-icon>
             </template>
-            <template v-slot:append>
-              <v-btn icon>
-                <v-icon @click="increment" @mousedown="increment" color="teal accent-3">mdi-plus</v-icon>
-              </v-btn>
+            <template #append>
+              <v-icon @click="increment" color="teal accent-3">mdi-plus</v-icon>
             </template>
           </v-slider>
         </v-col>
@@ -67,8 +63,22 @@
         <span class="orange--text">₩</span>
         {{ sumPrice | numbering }}
       </h1>
+
       <!-- 추가버튼 -->
-      <v-btn class="white--text" color="deep-purple accent-2" @click="addItem" :block="true">추가</v-btn>
+      <v-btn
+        v-if="!edit"
+        class="white--text"
+        color="deep-purple accent-2"
+        @click="addItem"
+        :block="true"
+      >추가</v-btn>
+      <v-btn
+        v-else
+        class="white--text"
+        color="deep-purple accent-2"
+        @click="editingItem"
+        :block="true"
+      >수정</v-btn>
     </v-container>
   </v-form>
 </template>
@@ -77,11 +87,20 @@
 import numeral from "numeral";
 export default {
   name: "ItemInput",
+  props: {
+    edit: {
+      type: Boolean
+    },
+    editItem: {
+      type: Object
+    }
+  },
   data() {
     return {
       min: 1,
       max: 100,
       item: {
+        id: "",
         name: "",
         price: 0,
         count: 1
@@ -154,19 +173,32 @@ export default {
     },
     addItem() {
       if (this.checkItem()) {
+        this.item.id = new Date().getTime();
         this.$store.dispatch("addingItemAction", this.item);
         this.item = {
+          id: "",
           name: "",
-          price: 1000,
+          price: 0,
           count: 1
         };
         this.$emit("itemAdded");
+      }
+    },
+    editingItem() {
+      if (this.checkItem()) {
+        this.$store.dispatch("editItemAction", this.item);
+        this.$emit("itemEdited");
       }
     }
   },
   filters: {
     numbering(value) {
       return numeral(value).format("0,0");
+    }
+  },
+  mounted() {
+    if (this.edit) {
+      this.item = this.editItem;
     }
   }
 };

@@ -14,14 +14,17 @@ const mutations = {
 	},
 	deleteItem(state, item) {
 		let { carts } = state;
-		const ItemIdx = carts.findIndex(cartItem => cartItem === item);
+		let nextCarts = carts.filter(cartItem => cartItem.id !== item.id)
 
-		if (ItemIdx > -1) {
-			carts.splice(ItemIdx, 1);
-			state.carts = carts;
-			localStorage.setItem('handy-cart', JSON.stringify(carts));
-		}
+		state.carts = nextCarts
+		localStorage.setItem('handy-cart', JSON.stringify(carts));
 	},
+	editItem(state, item) {
+		let { carts } = state;
+		let editedCarts = carts.map(cartItem => cartItem.id !== item.id ? cartItem : { ...item })
+		state.carts = editedCarts
+		localStorage.setItem('handy-cart', JSON.stringify(carts))
+	}
 };
 
 const actions = {
@@ -34,6 +37,9 @@ const actions = {
 	deleteItemAction(options, item) {
 		options.commit('deleteItem', item);
 	},
+	editItemAction(options, item) {
+		options.commit('editItem', item)
+	}
 };
 
 const getters = {
