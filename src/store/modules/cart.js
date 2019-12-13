@@ -24,6 +24,10 @@ const mutations = {
 		let editedCarts = carts.map(cartItem => cartItem.id !== item.id ? cartItem : { ...item })
 		state.carts = editedCarts
 		localStorage.setItem('handy-cart', JSON.stringify(carts))
+	},
+	clearCarts(state) {
+		state.carts = []
+		localStorage.setItem('handy-cart', JSON.stringify(state.carts))
 	}
 };
 
@@ -39,6 +43,9 @@ const actions = {
 	},
 	editItemAction(options, item) {
 		options.commit('editItem', item)
+	},
+	clearCartsAction(options) {
+		options.commit('clearCarts')
 	}
 };
 

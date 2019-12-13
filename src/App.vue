@@ -7,7 +7,8 @@
         <v-spacer class="wide-spacer">
           <!-- 화면너비가 600px보다 클때 나타납니다 -->
         </v-spacer>
-        <v-toolbar-title class="mr-5">
+        <ClearModal />
+        <v-toolbar-title class="mx-1">
           {{
           totalPrice | numbering
           }}
@@ -40,13 +41,14 @@
 import CartList from "./components/CartList";
 import InputModalFullScreen from "./components/InputModalFullScreen";
 import InputModalScroll from "./components/InputModalScroll";
+import ClearModal from "./components/ClearModal";
 import { mapGetters } from "vuex";
 import numeral from "numeral";
 export default {
   name: "app",
   components: {
     CartList,
-    // BottomSheet,
+    ClearModal,
     InputModalFullScreen,
     InputModalScroll
   },
