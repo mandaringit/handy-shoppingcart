@@ -5,8 +5,9 @@
         :headers="headers"
         :items="globalCarts"
         :sort-by="['name', 'price', 'count']"
+        :items-per-page="10000"
+        no-data-text="추가된 항목이 존재하지 않습니다."
         hide-default-footer
-        :items-per-page="30"
       >
         <template #item.price="{ item }">{{ item.price | numbering }}</template>
         <template #item.count="{ item }">{{ item.count }} 개</template>

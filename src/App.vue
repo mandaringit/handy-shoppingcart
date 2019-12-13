@@ -31,11 +31,9 @@
     </v-sheet>
     <!-- footer -->
     <v-footer absolute>
+      <AboutModal />
       <v-spacer></v-spacer>
-      <div>
-        {{new Date().getFullYear()}},
-        <a href="https://github.com/mandaringit">MANDARIN</a>
-      </div>
+      <span class="subtitle-2">© {{new Date().getFullYear()}}, MANDARIN</span>
     </v-footer>
   </v-app>
 </template>
@@ -44,6 +42,7 @@
 import CartList from "./components/CartList";
 import InputModalFullScreen from "./components/InputModalFullScreen";
 import InputModalScroll from "./components/InputModalScroll";
+import AboutModal from "./components/AboutModal";
 import ClearModal from "./components/ClearModal";
 import { mapGetters } from "vuex";
 import numeral from "numeral";
@@ -53,7 +52,8 @@ export default {
     CartList,
     ClearModal,
     InputModalFullScreen,
-    InputModalScroll
+    InputModalScroll,
+    AboutModal
   },
   mounted() {
     this.$store.dispatch("initialize");
