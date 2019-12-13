@@ -1,6 +1,10 @@
 # handy-shoppingcart
 
-장보러 갔을때 얼마나 담았는지 간단한게 살펴보자 - 수정중..
+놀러갈 때, 마트에서 계산기 들고다니면서 헷갈려 죽을 것 같던 총무들이여
+
+여기로 오시라
+
+[핸디쇼핑카트](https://handycart.netlify.com)
 
 ## TODO
 
