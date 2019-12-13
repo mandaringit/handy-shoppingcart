@@ -32,7 +32,10 @@
     <!-- footer -->
     <v-footer absolute>
       <v-spacer></v-spacer>
-      <div>MANDARIN</div>
+      <div>
+        {{new Date().getFullYear()}},
+        <a href="https://github.com/mandaringit">MANDARIN</a>
+      </div>
     </v-footer>
   </v-app>
 </template>
